@@ -23,24 +23,23 @@ rl.question('Please enter the file path: ', (answer) =>{
 });
 
 rl.on('close',function(){
-	startClient(deleteTweets);
+	startClient();
 })
 
 function startClient(){
 	client = new twitter({
-		consumer_key: 'b6OevgtTEQXcxxPpUHtpTDu8S',
-		consumer_secret: 'QqCcgeAOq7HXTGljv9lrfeok4Y2xPgH6PYaLriMGEUaMU4VIHL',
-		access_token_key: '762040724523249665-rDcTbBPGjVFDpGgRJuuixzFK1E0fx7D',
-		access_token_secret: '9g8tuTSTDZnIFq6uli2xqohnc7WSd4onlTJiX74fs6rKF'
+		consumer_key: '',
+		consumer_secret: '',
+		access_token_key: '',
+		access_token_secret: ''
 	});
 
 	params = {screen_name: 'nodejs'};
 	for(var x in tweet){
-		console.log(tweet[x]);
 		var id = tweet[x].id_str;
 		arrayOfTweets.push(id.toString());
 	}
-	interval = setInterval(deleteTweets,6000)
+	interval = setInterval(deleteTweets,500)
 };
 
 
@@ -57,5 +56,9 @@ var deleteTweets = function(){
 			});
 		}else{
 			clearInterval(interval);
+			fs.unlink('./'+filePath, (err) => {
+				if(err) throw err;
+				console.log("Tweet delete script finished, file: " + filePath + " deleted")
+			});
 		}
 };
