@@ -28,15 +28,15 @@ rl.on('close',function(){
 
 function startClient(){
 	client = new twitter({
-		consumer_key: 'bUzyXeiGIaBQHQpwnk5T7exrU',
-		consumer_secret: 'PejrzO2R39aOGini4T5WlpLF4Le6SQoE31VoDrXeo3w7Ri6Svj',
-		access_token_key: '762040724523249665-0YHkrPsr183CSnjmOg2vkdkDemu1wE4',
-		access_token_secret: 'ollN7XWaRkc0wDTxW49rhxl4QmerZGNrkp6hr3cIJkQLs'
+		consumer_key: 'b6OevgtTEQXcxxPpUHtpTDu8S',
+		consumer_secret: 'QqCcgeAOq7HXTGljv9lrfeok4Y2xPgH6PYaLriMGEUaMU4VIHL',
+		access_token_key: '762040724523249665-rDcTbBPGjVFDpGgRJuuixzFK1E0fx7D',
+		access_token_secret: '9g8tuTSTDZnIFq6uli2xqohnc7WSd4onlTJiX74fs6rKF'
 	});
 
 	params = {screen_name: 'nodejs'};
 	for(var x in tweet){
-		var id = tweet[x].id_str;
+		var id = tweet[x].like.tweetId;
 		arrayOfTweets.push(id.toString());
 	}
 	interval = setInterval(deleteTweets,500)
@@ -46,7 +46,9 @@ function startClient(){
 var deleteTweets = function(){
 	console.log("Index:" + i + " Executing for id: " + arrayOfTweets[i]);
 		if(i<arrayOfTweets.length){
-			client.post('statuses/destroy/' + arrayOfTweets[i],params, function(error,tweets, response){
+			client.post('favorites/destroy/',
+				{screen_name: 'nodejs',
+				id: arrayOfTweets[i]}, function(error,tweets, response){
 				if(!error){
 					console.log("Success, deleted: " + tweets.text);
 				}else{
