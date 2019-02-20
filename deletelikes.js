@@ -42,10 +42,10 @@ startClient();
 
 function startClient(){
 	client = new twitter({
-		consumer_key: 'bUzyXeiGIaBQHQpwnk5T7exrU',
-		consumer_secret: 'PejrzO2R39aOGini4T5WlpLF4Le6SQoE31VoDrXeo3w7Ri6Svj',
-		access_token_key: '762040724523249665-0YHkrPsr183CSnjmOg2vkdkDemu1wE4',
-		access_token_secret: 'ollN7XWaRkc0wDTxW49rhxl4QmerZGNrkp6hr3cIJkQLs'
+		consumer_key: process.env.consumer_key,
+		consumer_secret: process.env.consumer_secret,
+		access_token_key: process.env.access_token_key,
+		access_token_secret: process.env.access_token_secret
 	});
 
 	params = {screen_name: 'nodejs', count:200};
