@@ -7,6 +7,7 @@ var filePath,
 	params,
 	arrayOfTweets = [],
 	interval, 
+	currentTweetId,
 	i=0;
 
 const rl = readline.createInterface({
@@ -39,28 +40,46 @@ function startClient(){
 		var id = tweet[x].like.tweetId;
 		arrayOfTweets.push(id.toString());
 	}
-	interval = setInterval(deleteTweets,500)
+	interval = setInterval(checkAndDelete,500)
 };
 
 
-var deleteTweets = function(){
-	console.log("Index:" + i + " Executing for id: " + arrayOfTweets[i]);
+var checkAndDelete = function(){
+	console.log("\n Index:" + i + " Executing for id: " + arrayOfTweets[i]);
 		if(i<arrayOfTweets.length){
-			client.post('favorites/destroy/',
+			client.post('favorites/create',
 				{screen_name: 'nodejs',
-				id: arrayOfTweets[i]}, function(error,tweets, response){
-				if(!error){
-					console.log("Success, deleted: " + tweets.text);
-				}else{
-					console.log(error);
-				}
-				i++;
-			});
+				id: arrayOfTweets[i]}, function(error, tweet, response){
+					if(!error){
+						console.log(arrayOfTweets[i] + "\n Favorited: " + tweet.text);
+
+					}else{
+						console.log(error)
+					}
+					destroyTweet(arrayOfTweets[i]);
+				})
 		}else{
 			clearInterval(interval);
 			fs.unlink('./'+filePath, (err) => {
 				if(err) throw err;
-				console.log("Tweet delete script finished, file: " + filePath + " deleted")
+				console.log("\n Tweet delete script finished, file: " + filePath + " deleted")
 			});
 		}
 };
+
+var destroyTweet = function (id){
+	console.log("\n At index: " + i + "\n Tweet ID: " + arrayOfTweets[i]);
+	client.post('favorites/destroy/', 
+		{
+			screen_name: 'nodejs',
+			id: id
+		},function(error,tweets, response){
+		if(!error){
+			console.log("\n " + tweets.id + " Success, deleted: " + tweets.text);
+			i++;
+		}else{
+			console.log(error);
+			i++;
+		}
+	});	
+}
