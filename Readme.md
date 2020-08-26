@@ -21,7 +21,7 @@
 
 	module.exports = tweets;
 
-5. Execute index.js and point to your tweets archive. The script to delete likes (likes.js) works similarly. 
+5. Execute deletetweets.js and point to your tweets archive. The script to delete likes (likes.js) works similarly. 
 
 6. 'deletelikes.js' - Pulls the last 200 favorited tweets and will delete those if they are available. 
 
