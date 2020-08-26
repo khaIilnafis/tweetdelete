@@ -21,9 +21,11 @@
 
 	module.exports = tweets;
 
-5. Execute deletetweets.js and point to your tweets archive. The script to delete likes (likes.js) works similarly. 
+5. Clone this repository, run npm install
 
-6. 'deletelikes.js' - Pulls the last 200 favorited tweets and will delete those if they are available. 
+6. Execute deletetweets.js and point to your tweets archive. The script to delete likes (likes.js) works similarly. 
+
+7. 'deletelikes.js' - Pulls the last 200 favorited tweets and will delete those if they are available. 
 
 
 #### The scripts to delete likes aren't very reliable as twitter will often return inconsisteny results -- i.e. the tweet is visible as a 'like/favorite' via your profile but hitting the API to remove the like returns err code 144 or 34. 
